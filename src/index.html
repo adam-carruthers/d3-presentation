@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
+    <link
+      rel="stylesheet"
+      href="/node_modules/reveal.js/dist/theme/black.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/node_modules/reveal.js/plugin/highlight/monokai.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <title>D3 Presentation</title>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-background-iframe="/Collision-Detection.html">
+          <h1>D3 - A Beginner's Guide</h1>
+          <span>By Adam Carruthers</span>
+        </section>
+
+        <section>
+          <h3>Talk structure</h3>
+          <ul>
+            <li class="fragment">What is D3 for? When should I use it?</li>
+            <li class="fragment">A few pretty D3 example graphs</li>
+            <li class="fragment">How it works, through a demo!</li>
+            <ul>
+              <li class="fragment">Getting your environment set up</li>
+              <li class="fragment">
+                The
+                <code>&lt;svg&gt;</code>
+                HTML element
+              </li>
+              <li class="fragment">D3 Selectors</li>
+              <li class="fragment">Making a bar chart</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>What is D3?</h3>
+
+          <ul>
+            <li class="fragment">
+              D3 is a JavaScript library that makes it <b>easier</b> to create
+              complex custom online visualisations using data.
+            </li>
+            <li class="fragment">It is a <b>low level library</b></li>
+            <li class="fragment">
+              <i>Cons:</i> Sometimes manual, fiddly, difficult
+            </li>
+            <li class="fragment">
+              <i>Pros:</i> Very customisable, very powerful
+            </li>
+          </ul>
+
+          <aside class="notes">
+            <p>
+              D3 is a JavaScript library that makes it <b>easier</b> to create
+              complex custom online visualisations using data. In some ways it
+              also makes it harder to create simple visualisations like bar
+              charts, but I'll save that for the demo.
+            </p>
+            <p>
+              It is a low level library, meaning that creating visualisations is
+              still quite manual, fiddly and difficult. The flipside is that it
+              is extremely powerful and customisable.
+            </p>
+          </aside>
+        </section>
+
+        <section data-background-color="#e6eef8">
+          <h3>When should I use D3? What for?</h3>
+
+          <img src="./men women pockets.png" class="fragment" />
+
+          <aside class="notes">
+            <p>
+              Allow me to show you an article from an online data journalism
+              organisation that I love called <i>The Pudding</i>. The article is
+              about the much-grumbled-about difference in size between men and
+              women's pockets.
+            </p>
+            <p>
+              Which leads me to the first potential use of D3. Using HTML and in
+              particular the SVG tag, you can sometimes make very specific
+              graphs. Graph styles that do not exist on other platforms. In this
+              particular this graph <b>(click)</b> shows the difference between
+              men and women's pocket sizes. It cleverly overlays all the
+              measurements they took of different pocket sizes to give you, the
+              reader, a sense of what the true differences are.
+            </p>
+          </aside>
+        </section>
+
+        <section
+          data-background-color="#e6eef8"
+          data-background-iframe="https://pudding.cool/2018/08/pockets/"
+        >
+          <aside class="notes">
+            <p>
+              But D3 runs in a browser, on the internet. A plain static graph is
+              a very boring way to use all this power. Which brings me to the
+              next features that D3 has to offer. First off, animations in D3
+              are very cool. Let's have a look at what happens when we scroll
+              down this article. <b>(scroll)</b>
+            </p>
+            <p>
+              There's even a funky bit in the article where you can see how
+              diferent items fit in the pockets of men's and women's trousers.
+            </p>
+            <p>
+              And if that weren't cool enough, the other big benefit offered by
+              D3 is interactivity.
+            </p>
+          </aside>
+        </section>
+
+        <section
+          data-background-color="white"
+          data-background-iframe="/give-observable-border.html?src=https%3A%2F%2Fobservablehq.com%2Fembed%2F%40d3%2Fversor-dragging%3Fcells%3Dchart%252Cviewof%2BprojectionName"
+        >
+          <aside class="notes">
+            For example, this D3 script was made to demonstrate the different
+            projections that there are for maps. So we can rotate this globe and
+            see how changing the central latitude and longitude changes the
+            image. So far so normal. But if we change the map to use a
+            projection, then suddenly we can see how changing the central
+            latitude and longitude here also makes a difference.
+          </aside>
+        </section>
+
+        <section
+          data-background-color="white"
+          data-background-iframe="/give-observable-border.html?src=https%3A%2F%2Fobservablehq.com%2Fembed%2F%40d3%2Fforce-directed-graph%3Fcells%3Dchart"
+        >
+          <aside class="notes">
+            <p>
+              D3 also includes quite a bit of helper code to do random bits and
+              bobs. It has features for generating random numbers, doing
+              statistical QQ-plots. On this page I'm showing this is using a
+              physics simulator to create this force directed graph.
+            </p>
+            <p>
+              What is the data? Each node here represents a character in Les
+              Miserables, and the lines represent those characters that
+              interacted. This gives us a birds eye view of which characters are
+              connected to each other. The colourings were done using some kind
+              of clustering algorithm.
+            </p>
+            <p>
+              You can move around the different nodes using clicking and
+              dragging to examine the connections, and hover your mouse to see
+              which character the node represents.
+            </p>
+          </aside>
+        </section>
+
+        <section
+          data-background-color="white"
+          data-background-iframe="/give-observable-border.html?src=https%3A%2F%2Fobservablehq.com%2Fembed%2F%40d3%2Fanimated-treemap%3Fcells%3Dchart%252Cviewof%2Bindex"
+        >
+          <aside class="notes">
+            <p>
+              By far the most powerful of the helper code features is the
+              animation functions. We can see here the population of the USA in
+              each state as the country grew in the 20th century.
+            </p>
+            <p>
+              The code to generate this particular diagram isn't even that long.
+              This presentation will be released after this talk, and on it you
+              will be able to go to these slides, and click on the links
+              underneath these visualisations to get to the code that generated
+              them.
+            </p>
+          </aside>
+        </section>
+
+        <section
+          data-background-color="white"
+          data-background-iframe="/give-observable-border.html?src=https%3A%2F%2Fobservablehq.com%2Fembed%2F%40d3%2Fgallery%3Fcell%3D%2A"
+        >
+          <aside class="notes">
+            <p>
+              I will take this moment to say that many of these examples that
+              you see came from the D3 gallery shown here. The most common way
+              that D3 is coded is to go to this gallery, find a diagram similar
+              to that which you want to make, then to copy the code already
+              there and modify.
+            </p>
+          </aside>
+        </section>
+
+        <section data-background-color="white">
+          <h3>When should I use D3? What for?</h3>
+          <h5>In NHS Digital</h5>
+
+          <ul>
+            <li class="fragment">
+              When the diagram you want to make can't be generated by other
+              software (e.g: cartograms, sankey diagrams)
+            </li>
+            <li class="fragment">
+              When interactivity or animation aids understanding a lot (e.g:
+              adding features that allow you to drill down into the data)
+            </li>
+            <li class="fragment">
+              When you want to show off and/or add frills
+            </li>
+          </ul>
+
+          <aside class="notes">
+            <p>
+              So I've shown you some stuff you can make with D3 and what it can
+              produce. But on a practical level, as someone in NHS Digital, when
+              should you use it? Well...
+            </p>
+            <ul>
+              <li>
+                When the diagram you want to make can't be generated by other
+                software (e.g: cartograms, sankey diagrams)
+              </li>
+              <li>
+                When interactivity or animation aids understanding a lot (e.g:
+                adding features that allow you to drill down into the data)
+              </li>
+              <li>When you want to show off and/or add frills</li>
+            </ul>
+            <p>But above all else I would tend to caution that</p>
+          </aside>
+        </section>
+
+        <section data-background-color="white">
+          <h1 style="color: red">Most of the time there's an easier way.</h1>
+
+          <aside class="notes">
+            Don't build a rocket to climb a hill. There exist a million tools to
+            create graphs and the easy off-the-shelf solution will probably work
+            better for you. R's ggplot. Python's matplotlib. JS's chart.js. As I
+            hope to emphasize, d3 is fiddly.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Demo time!</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Getting your environment set up</h2>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Getting your environment set up</h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers data-trim>
+&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta
+    name=&quot;viewport&quot;
+    content=&quot;width=device-width,
+    initial-scale=1&quot;
+  &gt;
+
+  &lt;title&gt;My amazing D3 project&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Hello!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <h1 style="color: black; text-align: left">Hello!</h1>
+          </div>
+
+          <aside class="notes">
+            So first of all we just need to get people's environment set up
+            correctly. Luckily for you guys, it is crazy easy. You just need to
+            make an empty text file, add the following code, then save it as
+            something.html. Then you can open it in a browser and voila. This is
+            just a extremely basic HTML5 template, nothing fancy.
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>
+            Exploring the
+            <code>&lt;svg&gt;</code>
+            element
+          </h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers="15-20" data-trim>
+&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta
+    name=&quot;viewport&quot;
+    content=&quot;width=device-width,
+    initial-scale=1&quot;
+  &gt;
+
+  &lt;title&gt;My amazing D3 project&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;svg
+    width=&quot;400&quot;
+    height=&quot;500&quot;
+  &gt;
+    ...
+  &lt;/svg&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <svg width="400" height="400" fill="blue"></svg>
+          </div>
+
+          <aside class="notes">
+            <p>
+              To start us off, we need to understand the SVG element. Now, D3
+              does not necessarily need to use the SVG element. D3 can use any
+              HTML tag you like. You can make a graph out of div elements and
+              similar, but with standard HTML it is hard to position elements
+              and it is hard to create complex shapes. This page now has an SVG
+              element.
+            </p>
+            <p>
+              Now, the page looks identical, you must be thinking. And you're
+              right that it looks no different, but if I use developer tools,
+              you'll be able to see that there is in fact a new block element on
+              the page. Pretty boring but we can put stuff in it!
+            </p>
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>
+            Exploring the
+            <code>&lt;svg&gt;</code>
+            element
+          </h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers="5-13" data-trim>
+  &lt;svg
+    width=&quot;400&quot;
+    height=&quot;500&quot;
+  &gt;
+    &lt;rect
+      x=&quot;10&quot;
+      y=&quot;20&quot;
+      width=&quot;300&quot;
+      height=&quot;100&quot;
+      style=&quot;
+        fill: rgb(0, 0, 255);
+        stroke-width: 3;
+        stroke: rgb(0, 0, 0);
+      &quot;
+    /&gt;
+  &lt;/svg&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <svg width="400" height="400" fill="blue">
+              <rect
+                x="10"
+                y="20"
+                width="300"
+                height="100"
+                style="
+                  fill: rgb(0, 0, 255);
+                  stroke-width: 3;
+                  stroke: rgb(0, 0, 0);
+                "
+              />
+            </svg>
+          </div>
+
+          <aside class="notes">
+            We have now added a rectangle element, and you can start to see how
+            this tag functions. You'll notice that we very specifically place
+            this rectangle at certain coordinates, and give it specific height
+            and width. The coordinates of the system start in the top left with
+            (0, 0) then as you go to the right the x increases, and as you go
+            down the y increases. Normally, the max x coordinate is the width of
+            the SVG element. The max y coordinate is the height of the SVG
+            element. Let's have a look at changing the x and y coordinates of
+            the rectangle.
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>
+            Exploring the
+            <code>&lt;svg&gt;</code>
+            element
+          </h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers="5-13" data-trim>
+  &lt;svg
+    width=&quot;400&quot;
+    height=&quot;500&quot;
+  &gt;
+    &lt;rect
+      x=&quot;50&quot;
+      y=&quot;20&quot;
+      width=&quot;300&quot;
+      height=&quot;100&quot;
+      style=&quot;
+        fill: rgb(0, 0, 255);
+        stroke-width: 3;
+        stroke: rgb(0, 0, 0);
+      &quot;
+    /&gt;
+  &lt;/svg&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <svg width="400" height="400" fill="blue">
+              <rect
+                x="50"
+                y="20"
+                width="300"
+                height="100"
+                style="
+                  fill: rgb(0, 0, 255);
+                  stroke-width: 3;
+                  stroke: rgb(0, 0, 0);
+                "
+              />
+            </svg>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <h2>
+            Exploring the
+            <code>&lt;svg&gt;</code>
+            element
+          </h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers="5-13" data-trim>
+  &lt;svg
+    width=&quot;400&quot;
+    height=&quot;500&quot;
+  &gt;
+    &lt;rect
+      x=&quot;50&quot;
+      y=&quot;200&quot;
+      width=&quot;300&quot;
+      height=&quot;100&quot;
+      style=&quot;
+        fill: rgb(0, 0, 255);
+        stroke-width: 3;
+        stroke: rgb(0, 0, 0);
+      &quot;
+    /&gt;
+  &lt;/svg&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <svg width="400" height="400" fill="blue">
+              <rect
+                x="50"
+                y="200"
+                width="300"
+                height="100"
+                style="
+                  fill: rgb(0, 0, 255);
+                  stroke-width: 3;
+                  stroke: rgb(0, 0, 0);
+                "
+              />
+            </svg>
+          </div>
+
+          <aside class="notes">
+            It is worth mentioning that when you do a bar chart, the bars are
+            normally formed of these rectangle elements. Programmatically, we
+            have to fairly manually work out the x, y, width and height of all
+            the rectangles in order to make our chart. Like I say, pretty
+            fiddly!
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>
+            Exploring the
+            <code>&lt;svg&gt;</code>
+            element
+          </h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers data-trim>
+  &lt;svg
+    width=&quot;400&quot;
+    height=&quot;500&quot;
+  &gt;
+    &lt;path
+      id=&quot;lineAB&quot;
+      d=&quot;M 100 350 l 150 -300&quot;
+      stroke=&quot;red&quot;
+      stroke-width=&quot;3&quot;
+      fill=&quot;none&quot;
+    /&gt;
+    &lt;path
+      id=&quot;lineBC&quot;
+      d=&quot;M 250 50 l 150 300&quot;
+      stroke=&quot;red&quot;
+      stroke-width=&quot;3&quot;
+      fill=&quot;none&quot;
+    /&gt;
+    &lt;path
+      d=&quot;M 175 200 l 150 0&quot;
+      stroke=&quot;green&quot;
+      stroke-width=&quot;3&quot;
+      fill=&quot;none&quot;
+    /&gt;
+    &lt;path
+      d=&quot;M 100 350 q 150 -300 300 0&quot;
+      stroke=&quot;blue&quot;
+      stroke-width=&quot;5&quot;
+      fill=&quot;none&quot;
+    /&gt;
+    &lt;!-- Mark relevant points --&gt;
+    &lt;g stroke=&quot;black&quot; stroke-width=&quot;3&quot; fill=&quot;black&quot;&gt;
+      &lt;circle id=&quot;pointA&quot; cx=&quot;100&quot; cy=&quot;350&quot; r=&quot;3&quot; /&gt;
+      &lt;circle id=&quot;pointB&quot; cx=&quot;250&quot; cy=&quot;50&quot; r=&quot;3&quot; /&gt;
+      &lt;circle id=&quot;pointC&quot; cx=&quot;400&quot; cy=&quot;350&quot; r=&quot;3&quot; /&gt;
+    &lt;/g&gt;
+    &lt;!-- Label the points --&gt;
+    &lt;g
+      font-size=&quot;30&quot;
+      font-family=&quot;sans-serif&quot;
+      fill=&quot;black&quot;
+      stroke=&quot;none&quot;
+      text-anchor=&quot;middle&quot;
+    &gt;
+      &lt;text x=&quot;100&quot; y=&quot;350&quot; dx=&quot;-30&quot;&gt;A&lt;/text&gt;
+      &lt;text x=&quot;250&quot; y=&quot;50&quot; dy=&quot;-10&quot;&gt;B&lt;/text&gt;
+      &lt;text x=&quot;400&quot; y=&quot;350&quot; dx=&quot;30&quot;&gt;C&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/svg&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <svg width="400" height="400" fill="blue" viewbox="40 0 400 400">
+              <path
+                id="lineAB"
+                d="M 100 350 l 150 -300"
+                stroke="red"
+                stroke-width="3"
+                fill="none"
+              />
+              <path
+                id="lineBC"
+                d="M 250 50 l 150 300"
+                stroke="red"
+                stroke-width="3"
+                fill="none"
+              />
+              <path
+                d="M 175 200 l 150 0"
+                stroke="green"
+                stroke-width="3"
+                fill="none"
+              />
+              <path
+                d="M 100 350 q 150 -300 300 0"
+                stroke="blue"
+                stroke-width="5"
+                fill="none"
+              />
+              <!-- Mark relevant points -->
+              <g stroke="black" stroke-width="3" fill="black">
+                <circle id="pointA" cx="100" cy="350" r="3" />
+                <circle id="pointB" cx="250" cy="50" r="3" />
+                <circle id="pointC" cx="400" cy="350" r="3" />
+              </g>
+              <!-- Label the points -->
+              <g
+                font-size="30"
+                font-family="sans-serif"
+                fill="black"
+                stroke="none"
+                text-anchor="middle"
+              >
+                <text x="100" y="350" dx="-30">A</text>
+                <text x="250" y="50" dy="-10">B</text>
+                <text x="400" y="350" dx="30">C</text>
+              </g>
+            </svg>
+          </div>
+
+          <aside class="notes">
+            <p>
+              But if you could just do rectangles, SVG would be very boring.
+              This graph contains a few of the other features you can draw in
+              SVG.
+            </p>
+            <ul>
+              <li>
+                First we have straight lines, described by this "d" property on
+                the path that says to the computer to <b>M</b>ove to this point
+                and then go <b>l</b>inearly by this number of pixels.
+              </li>
+              <li>
+                Note how we get the different lines with different colours.
+              </li>
+              <li>
+                This final line uses what's called a Bezier curve, which is
+                beyond the scope of this talk, but it is good to know that not
+                all the lines in SVG have to be straight lines.
+              </li>
+              <li>
+                These paths do draw lines, but you can also fill them if you so
+                wish to get shaded areas. Most complex shapes you see are these
+                path objects, for example countries you see on a map are often
+                rendered as paths. The line on a line graph is also most of the
+                time a path. You can imagine that going from a set of data to
+                the required "d" property is tricky.
+              </li>
+              <li>
+                Next we see a <code>g</code> element. This is simply a group.
+              </li>
+              <li>
+                It contains circles, which are nice and simple, just put the
+                centre x, centre y and radius and voila. When you do a scatter
+                plot, each scatter point is normally a circle element.
+              </li>
+            </ul>
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>
+            Exploring the
+            <code>&lt;svg&gt;</code>
+            element
+          </h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers data-trim>
+  &lt;svg
+    width=&quot;400&quot;
+    height=&quot;500&quot;
+  &gt;
+    &lt;defs&gt;
+      &lt;radialGradient id=&quot;RadialGradient1&quot;&gt;
+        &lt;stop offset=&quot;0%&quot; stop-color=&quot;red&quot; /&gt;
+        &lt;stop offset=&quot;100%&quot; stop-color=&quot;blue&quot; /&gt;
+      &lt;/radialGradient&gt;
+    &lt;/defs&gt;
+
+    &lt;rect
+      x=&quot;10&quot;
+      y=&quot;10&quot;
+      rx=&quot;15&quot;
+      ry=&quot;15&quot;
+      width=&quot;300&quot;
+      height=&quot;300&quot;
+      fill=&quot;url(#RadialGradient1)&quot;
+    /&gt;
+  &lt;/svg&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <svg width="400" height="400" fill="blue">
+              <defs>
+                <radialGradient id="RadialGradient1">
+                  <stop offset="0%" stop-color="red" />
+                  <stop offset="100%" stop-color="blue" />
+                </radialGradient>
+              </defs>
+
+              <rect
+                x="10"
+                y="10"
+                rx="15"
+                ry="15"
+                width="300"
+                height="300"
+                fill="url(#RadialGradient1)"
+              />
+            </svg>
+          </div>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Getting your environment set up</h2>
+          <pre
+            data-id="code"
+            class="language-html"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers="1-30|11-13,19-23" data-trim>
+&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta
+    name=&quot;viewport&quot;
+    content=&quot;width=device-width,
+    initial-scale=1&quot;
+  &gt;
+
+  &lt;script
+    src="https://d3js.org/d3.v7.min.js"
+  &gt;&lt;/script&gt;
+
+  &lt;title&gt;My amazing D3 project&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div id="d3-main"&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    ...
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          ></div>
+
+          <aside class="notes">
+            <p>
+              So far so no D3. We need to briefly return to getting the
+              environment set up. But what we need to do to add D3 is stupid
+              easy. We just need to import the library using this script at the
+              top level. This line will create the <code>d3</code> variable in
+              the global scope, which we can use in our script tag at the
+              bottom. I got this line of code from the d3 website.
+            </p>
+            <p>
+              This set up I have shown is the simplest way to get D3. Of course,
+              it would be much better to split the code into separate files and
+              use imports, but that is out of scope for this demo. I will say
+              though that, for those that know JS, D3 is available on npm.
+            </p>
+            <p>
+              Please note the singular div in the main environment with id
+              d3-main. We will be selecting it in the code. Let's look at the
+              code we can put in the script tag.
+            </p>
+            <p>
+              At the moment, our page just has a div, so there's nothing there
+              to see. Let's change that.
+            </p>
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Using D3</h2>
+          <pre
+            data-id="code"
+            class="language-js"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers="1-30|11-13,19-23" data-trim>
+            d3.select("#d3-main-1")
+              .style("width", "200px")
+              .style("height", "200px")
+              .style("margin", "10px")
+              .style("background-color", "green");
+          </code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <div id="d3-main-1"></div>
+            <script>
+              d3.select("#d3-main-1")
+                .style("width", "200px")
+                .style("height", "200px")
+                .style("margin", "10px")
+                .style("background-color", "green");
+            </script>
+          </div>
+
+          <aside class="notes">
+            <p>
+              This code is the simplest D3 you're gonna see. The code selects
+              our div, and it changes some css styles. Now we have a green box,
+              progress!
+            </p>
+            <p>
+              The <code>d3.select</code> line creates a selector. When you run
+              methods like <code>.style</code> on the selector, it changes the
+              elements that are referred to. It also returns back the original
+              selector, so that you can do nice function chains like that seen
+              here.
+            </p>
+          </aside>
+        </section>
+
+        <section data-auto-animate>
+          <h2>Using D3</h2>
+          <pre
+            data-id="code"
+            class="language-js"
+            style="width: 50%; height: 400px; position: absolute; left: 0"
+          ><code data-line-numbers="1-30|11-13,19-23" data-trim>
+            const div = d3.select("#d3-main");
+
+            const ul = div2.append("ul");
+
+            const li1 = ul.append("li")
+                          .text("first");
+
+            const li2 = ul.append("li")
+                          .text("second");
+
+            const li3 = ul.append("li")
+                          .text("third");
+            
+            // div id="d3-main"
+            // |
+            // +- ul
+            //    |
+            //    +- li
+            //    |  first
+            //    |
+            //    +- li
+            //    |  second
+            //    |
+            //    +- li
+            //       third
+          </code></pre>
+          <div
+            data-id="fake-page"
+            style="
+              position: absolute;
+              right: 0;
+              width: 48%;
+              height: 400px;
+              background-color: white;
+              margin-top: 20px;
+              margin-bottom: 20px;
+              text-align: left;
+              color: black !important;
+            "
+          >
+            <div id="d3-main-2"></div>
+            <script>
+              const div2 = d3.select("#d3-main-2");
+
+              const ul = div2.append("ul");
+
+              const li1 = ul.append("li").text("first");
+
+              const li2 = ul.append("li").text("second");
+
+              const li3 = ul.append("li").text("third");
+            </script>
+          </div>
+
+          <aside class="notes">
+            <p>
+              Using D3 methods we can also add new elements into the page. Here
+              we take our original
+            </p>
+          </aside>
+        </section>
+      </div>
+    </div>
+
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>

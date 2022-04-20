@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+
+<body
+  style="padding: 40px; display: flex; height: 100%; flex-direction: column"
+>
+  <div style="flex-grow: 1"></div>
+  <iframe width="100%" height="600" frameborder="0" id="the-iframe"></iframe>
+  <div style="flex-grow: 1"></div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+    document.getElementById("the-iframe").src = decodeURIComponent(
+      urlParams.get("src")
+    );
+  </script>
+</body>
