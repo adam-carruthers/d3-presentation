@@ -5,3 +5,28 @@
 .reveal h5 {
   text-transform: none;
 }
+
+.con-box {
+  width: 80px;
+  height: 80px;
+  margin-left: 40px;
+  padding: 13px 0;
+  box-sizing: border-box;
+}
+
+.con-data {
+  background-color: #674ea7;
+}
+
+.con-dom {
+  background-color: #3d85c6;
+}
+
+.con-row {
+  display: flex;
+  width: 960px;
+  height: 160px;
+  padding: 40px 0;
+  align-items: baseline;
+  box-sizing: border-box;
+}
